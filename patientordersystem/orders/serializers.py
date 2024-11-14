@@ -1,13 +1,12 @@
 from rest_framework import serializers
 from .models import Customer, Order
 
-class CustomerSerializer(serializers.Modelserializer):
+class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Customer:
-        fields =  '__all__'
+        model = Customer
+        fields = '__all__'
 
-
-class OrderSerializer(serializer.Modelserializer):
-    class meta:
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
         model = Order
-        fields - '__all__'
+        fields = '__all__'
