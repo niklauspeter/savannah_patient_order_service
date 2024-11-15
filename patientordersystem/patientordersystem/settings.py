@@ -49,7 +49,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'mozilla_django_oidc.middleware.SessionRefresh',
 ]
+# AUTHENTICATION_BACKENDS = [
+#     'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+#     'orders.backends.CustomOIDCAuthenticationBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# ]
 
 ROOT_URLCONF = 'patientordersystem.urls'
 
@@ -101,6 +108,37 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Auth0 Credentials
+OIDC_RP_CLIENT_ID = "loHB9FWuTUICrN5iIhY2O1MZSwcK93KX"
+OIDC_RP_CLIENT_SECRET = "DdXWvsuXt9i4jJp7Y15quX2WSDauqP18cAXG_S30ZOnp8nJRyYNmPorpTMGH6wDo"
+OIDC_OP_DOMAIN = "dev-ytcq356n3j8xg643.eu.auth0.com"
+
+# # OpenID Connect Settings
+# OIDC_OP_AUTHORIZATION_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/authorize"
+# OIDC_OP_TOKEN_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/oauth/token"
+# OIDC_OP_USER_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/userinfo"
+# OIDC_RP_SIGN_ALGO = "RS256"
+# OIDC_STORE_ACCESS_TOKEN = True  # Store access tokens for API calls if needed
+# OIDC_STORE_ID_TOKEN = True      # Store ID tokens if you want to use them
+
+
+
+AUTHLIB_OAUTH_CLIENTS = {
+    'auth0': {
+        'client_id': OIDC_RP_CLIENT_ID,           # From Auth0 Application settings
+        'client_secret': OIDC_RP_CLIENT_SECRET,    # From Auth0 Application settings
+        'server_metadata_url': f"https://{OIDC_OP_DOMAIN}/.well-known/openid-configuration",
+        # 'authorize_url': f"https://{OIDC_OP_DOMAIN}/authorize",
+        # 'access_token_url': f"https://{OIDC_OP_DOMAIN}/oauth/token",
+        # 'userinfo_url': f"https://{OIDC_OP_DOMAIN}/userinfo",
+        'client_kwargs': {
+            'scope': 'openid profile email',
+        },
+    }
+}
+
+# Specify the login URL for redirection if unauthenticated
+LOGIN_URL = '/oidc/login/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

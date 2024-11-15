@@ -15,13 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from orders.views import AddCustomerView, ListCustomersView, AddOrderView, ListOrderView
+from django.urls import path, include
+from orders.views import AddCustomerView, ListCustomersView, AddOrderView, ListOrderView, login, callback, logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('oidc/login/', login, name='login'),
+    path('oidc/callback/', callback, name='callback'),
+    path('oidc/logout/', logout, name='logout'),
+
     path('api/customers/add/', AddCustomerView.as_view(), name='add-customer'),
     path('api/customers/list', ListCustomersView.as_view(), name='list_customers'),
     path('api/orders/add', AddOrderView.as_view(), name='add-orders'),
     path('api/orders/list', ListOrderView.as_view(), name='list-orders'),
+    # path("oidc/", include("mozilla_django_oidc.urls")),
 ]
