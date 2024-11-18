@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Patient Order Service - Authenticated</span></title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1><span class="red-text">Welcome, you are now signed in!</span></h1>
+    <p>Access tokens received from the AuthO's OpenId connect (OIDC) authentication are stored in your session, therefore you can interact with the API endpoints listed below.</p>
+    <p>On clicking the various endpoints(or typing them out on your browser search bar, you'll be redirected to django's inbuilt API testing interface where you can send and receive requests)</p>
+    <h2>Available Routes</h2>
+    <ul>
+        <li><strong>Add Customer</strong>: <a href="{% url 'add-customer' %}">/api/customers/add/</a></li>
+        <li><strong>List Customers</strong>: <a href="{% url 'list_customers' %}">/api/customers/list/</a></li>
+        <li><strong>Add Order</strong>: <a href="{% url 'add-orders' %}">/api/orders/add/</a></li>
+        <li><strong>List Orders</strong>: <a href="{% url 'list-orders' %}">/api/orders/list/</a></li>
+    </ul>
+
+    <h2>Instructions</h2>
+    <ol>
+        <li>Use the routes to manage customers and orders.</li>
+        <li>To add a customer, POST to <code>/api/customers/add/</code> by adding the JSON body in the <a href="{% url 'add-customer' %}">"content"</a> section in the following format:
+            <pre>{
+                "name": "Test User",
+                "code": "CUST123765",
+                "contact_number": "+254701236542",
+                "email": "testuser@gmail.com",
+                "insurance_number": "INS123483979"
+            }</pre>
+            <pre class="red-text">Be sure to add a real contact_number in the format above as it'll be used to send a message to user when an order is added through Africastalking api </pre>
+        </li>
+        <li>To add an order, POST to <code>/api/orders/add/</code> by adding the JSON body in the <a href="{% url 'add-orders' %}">"content"</a> section in the following format:
+            <pre>{
+                "customer": "1",
+                "item": "vaccine",
+                "amount": "20",
+                "physician_name":"abubakar"
+            
+            }</pre>
+            <pre class="red-text">modify the customer id as you see fit</pre>
+        </li>
+        <li>You can retrieve customer lists and order lists via the following routes
+        <pre> <strong>List Customers</strong>: <a href="{% url 'list_customers' %}">/api/customers/list/</a> </pre>
+        <pre> <strong>List Orders</strong>: <a href="{% url 'list-orders' %}">/api/orders/list/</a></pre>
+        </li>
+
+    </ol>
+
+    <a href="{% url 'oidc_logout' %}">Log out</a>
+</body>
+</html>

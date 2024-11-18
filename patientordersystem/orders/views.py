@@ -16,6 +16,18 @@ from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.permissions import AllowAny
 from patientordersystem.utils import send_sms 
 
+from django.views.generic import TemplateView
+
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+class AuthenticatedHomeView(TemplateView):
+    template_name = 'home_authenticated.html'
+
+def logout_view(request):
+    # Clear session and redirect to HomeView
+    request.session.clear()
+    return redirect(settings.LOGOUT_REDIRECT_URL)
 
 def logout(request):
     request.session.clear()
@@ -36,7 +48,7 @@ class AddCustomerView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ListCustomersView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         customers = Customer.objects.all()
         serializer = CustomerSerializer(customers, many=True)

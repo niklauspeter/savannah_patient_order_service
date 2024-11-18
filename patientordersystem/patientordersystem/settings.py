@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-eubv%df3ic(@!9)_ctsg^9svwtj*%=c_cfi^qvzs@7awn^vcv4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = os.environ.get('DEBUG', "False").lower() = 'true'
 
-ALLOWED_HOSTS = [ '127.0.0.1:8000', 'localhost:8000', '127.0.0.1', 'localhost' ]
+DEBUG = True 
+
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(" ")
+
+ALLOWED_HOSTS= [ '127.0.0.1:8000', 'localhost:8000', '127.0.0.1', 'localhost' ]
+
+
 
 # settings.py
 
@@ -69,7 +77,7 @@ ROOT_URLCONF = 'patientordersystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,7 +102,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+# database_url = os.environ.get('DATABASE_URL')
+DATABASES['default'] = dj_database_url.parse("postgresql://patient_order_database_user:lj9bHkuNZO2w7vM6TDj1pIHADDIqC8f2@dpg-cstm0sm8ii6s73fkeem0-a.frankfurt-postgres.render.com/patient_order_database")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -119,7 +128,9 @@ OIDC_RP_CLIENT_ID = "loHB9FWuTUICrN5iIhY2O1MZSwcK93KX"
 OIDC_RP_CLIENT_SECRET = "DdXWvsuXt9i4jJp7Y15quX2WSDauqP18cAXG_S30ZOnp8nJRyYNmPorpTMGH6wDo"
 OIDC_OP_DOMAIN = "dev-ytcq356n3j8xg643.eu.auth0.com"
 
-
+# OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID")
+# OIDC_RP_CLIENT_SECRET = os.environ.get("OIDC_RP_CLIENT_SECRET")
+# OIDC_OP_DOMAIN = os.environ.get("OIDC_OP_DOMAIN")
 
 OIDC_OP_AUTHORIZATION_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/authorize"
 OIDC_OP_TOKEN_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/oauth/token"
@@ -148,16 +159,21 @@ USE_I18N = True
 
 USE_TZ = True
 
+# LOGIN_URL = '/oidc/login/'
+# LOGOUT_URL = "/oidc/logout/"
+# LOGIN_REDIRECT_URL = '/'  # Or any page you prefer
+# LOGOUT_REDIRECT_URL = '/'
+
 LOGIN_URL = '/oidc/login/'
-LOGOUT_URL = "/oidc/logout/"
-LOGIN_REDIRECT_URL = '/'  # Or any page you prefer
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/authenticated/'  # Redirect to AuthenticatedHomeView after login
+LOGOUT_REDIRECT_URL = '/'  # Redirect to HomeView after logout
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [BASE_DIR / "static"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

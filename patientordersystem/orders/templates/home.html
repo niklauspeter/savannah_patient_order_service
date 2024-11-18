@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Patient Order Service</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Welcome to the Patient Order Service</h1>
+    <p>This interface allows you to test our APIs via the browser.</p>
+    <p>However, as you are not authenticated, you won't be able to access the permission protected apis</p>
+    <ul>
+        <li><p>Start by <a href="{% url 'oidc_login' %}">signup/login</a> to the service via AuthO's platform (if you're not signed in already)</p></li>
+        <li><p>Access tokens received from the AuthO's OpenId connect (OIDC) authentication will then be stored in your browser session, allowing you to interact with the API endpoints listed below.</p></li>
+        <li><p>On clicking the various endpoints(or typing them out on your browser search bar), you'll be redirected to django's inbuilt API testing interface where you can send and receive requests (Debug is set to true purely for testing)</p></li>
+    </ul>
+    <h2>Available Routes</h2>
+    <ul>
+        <li><strong>Add Customer</strong>: <a href="{% url 'add-customer' %}">/api/customers/add/</a></li>
+        <li><strong>List Customers</strong>: <a href="{% url 'list_customers' %}">/api/customers/list/</a></li>
+        <li><strong>Add Order</strong>: <a href="{% url 'add-orders' %}">/api/orders/add/</a></li>
+        <li><strong>List Orders</strong>: <a href="{% url 'list-orders' %}">/api/orders/list/</a></li>
+    </ul>
+</body>
+</html>
