@@ -38,8 +38,7 @@ def sendtrialmessage(request):
     return redirect('/')
 
 class AddCustomerView(APIView):
-    
-
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         serializer = CustomerSerializer(data=request.data)
         if serializer.is_valid():
@@ -48,15 +47,14 @@ class AddCustomerView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ListCustomersView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     def get(self, request):
         customers = Customer.objects.all()
         serializer = CustomerSerializer(customers, many=True)
         return Response(serializer.data)
 
 class AddOrderView(APIView):
-    
-
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         serializer = OrderSerializer(data=request.data)
         if serializer.is_valid():
