@@ -14,7 +14,8 @@ from django.conf import settings
 from django.http import JsonResponse
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.permissions import AllowAny
-from patientordersystem.utils import send_sms 
+from patientordersystem.utils import send_sms
+from django.views.decorators.csrf import csrf_exempt 
 
 from django.views.generic import TemplateView
 
@@ -37,6 +38,9 @@ def sendtrialmessage(request):
     send_sms("+254700206386", "Test message from Africa's Talking!")
     return redirect('/')
 
+
+
+@csrf_exempt
 class AddCustomerView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
@@ -52,7 +56,8 @@ class ListCustomersView(APIView):
         customers = Customer.objects.all()
         serializer = CustomerSerializer(customers, many=True)
         return Response(serializer.data)
-
+    
+@csrf_exempt
 class AddOrderView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
