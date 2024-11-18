@@ -24,23 +24,18 @@ from orders.views import logout, sendtrialmessage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     # path('oidc/v1/login/', login, name='login'),
     # path('oidc/v1/callback/', callback, name='callback'),
-    path('oidc/v1/logout/', logout, name='logout'),
+    path('oidc/logout/', logout, name='logout'),
 
     path('oidc/login/', oidc_views.OIDCAuthenticationRequestView.as_view(), name='oidc_login'),
     path('oidc/callback/', oidc_views.OIDCAuthenticationCallbackView.as_view(), name='oidc_authentication_callback'),
-    path('oidc/logout/', oidc_views.OIDCLogoutView.as_view(), name='oidc_logout'),
-
-    # path('register/', register, name='register'),
-    # path('login/', login_view, name='login'),
-    # path('logout/', logout_view, name='logout'),
+    path('oidc/vi/logout/', oidc_views.OIDCLogoutView.as_view(), name='oidc_logout'),
 
     path('trial/', sendtrialmessage, name='trial-message'),
     path('api/customers/add/', AddCustomerView.as_view(), name='add-customer'),
-    path('api/customers/list', ListCustomersView.as_view(), name='list_customers'),
-    path('api/orders/add', AddOrderView.as_view(), name='add-orders'),
-    path('api/orders/list', ListOrderView.as_view(), name='list-orders'),
+    path('api/customers/list/', ListCustomersView.as_view(), name='list_customers'),
+    path('api/orders/add/', AddOrderView.as_view(), name='add-orders'),
+    path('api/orders/list/', ListOrderView.as_view(), name='list-orders'),
     # path("oidc/", include("mozilla_django_oidc.urls")),
 ]

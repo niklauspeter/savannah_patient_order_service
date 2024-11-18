@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-eubv%df3ic(@!9)_ctsg^9svwtj*%=c_cfi^qvzs@7awn^vcv4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '127.0.0.1:8000', 'localhost:8000', '127.0.0.1', 'localhost' ]
 
 # settings.py
 
@@ -48,28 +48,6 @@ INSTALLED_APPS = [
     'users',
 ]
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     ),
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
-# }
-# AUTH_USER_MODEL = 'users.User'
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     ),
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
-#     'DEFAULT_RENDERER_CLASSES': (
-#         'rest_framework.renderers.JSONRenderer',
-#     ),
-# }
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -85,11 +63,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # 'users.backends.CustomOIDCAuthenticationBackend',
 ]
-
-# AUTHENTICATION_BACKENDS = (
-#     'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
-#     'django.contrib.auth.backends.ModelBackend',
-# )
 
 ROOT_URLCONF = 'patientordersystem.urls'
 
@@ -148,10 +121,10 @@ OIDC_OP_DOMAIN = "dev-ytcq356n3j8xg643.eu.auth0.com"
 
 
 
-OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://dev-ytcq356n3j8xg643.eu.auth0.com/authorize'
-OIDC_OP_TOKEN_ENDPOINT = 'https://dev-ytcq356n3j8xg643.eu.auth0.com/oauth/token'
-OIDC_OP_USER_ENDPOINT = 'https://dev-ytcq356n3j8xg643.eu.auth0.com/userinfo'
-OIDC_OP_JWKS_ENDPOINT = 'https://dev-ytcq356n3j8xg643.eu.auth0.com/.well-known/jwks.json'
+OIDC_OP_AUTHORIZATION_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/authorize"
+OIDC_OP_TOKEN_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/oauth/token"
+OIDC_OP_USER_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/userinfo"
+OIDC_OP_JWKS_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/.well-known/jwks.json"
 OIDC_RP_SIGN_ALGO = 'RS256'
 # OIDC_RP_REDIRECT_URI = 'http://localhost:8000/oidc/callback/'
 # OIDC_STORE_ACCESS_TOKEN = True  # Store access tokens for API calls if needed
@@ -160,60 +133,7 @@ OIDC_RP_SIGN_ALGO = 'RS256'
 
 # SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = False
-# OIDC_RP_CLIENT_ID = "TqfmixiJHrkg33Z2IauKIoXOMHMtIxQw"
-# OIDC_RP_CLIENT_SECRET = "tX7gJMC7v9c0XY5zHkJKfx9aF6K8XvQc7ytVOPSfieLo3bq_4BhCzPvLoZ96cnfd"
-# OIDC_OP_DOMAIN = "dev-ytcq356n3j8xg643.eu.auth0.com"
 
-# # OpenID Connect Settings
-# OIDC_OP_AUTHORIZATION_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/authorize"
-# OIDC_OP_TOKEN_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/oauth/token"
-# OIDC_OP_USER_ENDPOINT = f"https://{OIDC_OP_DOMAIN}/userinfo"
-# OIDC_RP_SIGN_ALGO = "RS256"
-# OIDC_STORE_ACCESS_TOKEN = True  # Store access tokens for API calls if needed
-# OIDC_STORE_ID_TOKEN = True      # Store ID tokens if you want to use them
-
-# SIMPLE_JWT = {
-#     'AUTH_HEADER_TYPES': ('Bearer',),
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-#     'ALGORITHM': 'RS256',
-#     'SIGNING_KEY': None,  # Set as None since it will use a verifying key instead
-#     'VERIFYING_KEY': None,  # Can leave as None if using JWK_URL
-#     'AUDIENCE': 'https://patientorder.com/api/v3/',  # Replace with your Auth0 API Audience
-#     'ISSUER': 'https://dev-ytcq356n3j8xg643.eu.auth0.com/',  # Replace with your Auth0 domain
-#     'JWK_URL': 'https://dev-ytcq356n3j8xg643.eu.auth0.com/.well-known/jwks.json',
-# }
-
-# SIMPLE_JWT = {
-#     'AUTH_HEADER_TYPES': ('Bearer',),
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Adjust as needed
-#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-#     'ALGORITHM': 'RS256',
-#     'AUDIENCE': 'https://dev-ytcq356n3j8xg643.eu.auth0.com/api/v2/',  # Simplify audience path if possible
-#     'ISSUER': 'https://dev-ytcq356n3j8xg643.eu.auth0.com/',
-#     'JWK_URL': 'https://dev-ytcq356n3j8xg643.eu.auth0.com/.well-known/jwks.json',
-# }
-
-# AUTHLIB_OAUTH_CLIENTS = {
-#     'auth0': {
-#         'client_id': OIDC_RP_CLIENT_ID,           # From Auth0 Application settings
-#         'client_secret': OIDC_RP_CLIENT_SECRET,    # From Auth0 Application settings
-#         'server_metadata_url': f"https://{OIDC_OP_DOMAIN}/.well-known/openid-configuration",
-#         'authorize_url': f"https://{OIDC_OP_DOMAIN}/authorize",
-#         'access_token_url': f"https://{OIDC_OP_DOMAIN}/oauth/token",
-#         'userinfo_url': f"https://{OIDC_OP_DOMAIN}/userinfo",
-#         'client_kwargs': {
-#             'scope': 'openid profile email',
-#         },
-#     }
-# }
-
-# Specify the login URL for redirection if unauthenticated
-LOGIN_URL = '/oidc/login/'
-LOGOUT_URL = "/oidc/logout/"
-LOGIN_REDIRECT_URL = '/'  # Or any page you prefer
-LOGOUT_REDIRECT_URL = '/'
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 # AFRICASTALKING_USERNAME = 'klausorioki'
 # AFRICASTALKING_API_KEY = 'atsk_d58a80a4050843a4af2c5b5743eee9823a8b37add422a780f6a7c27750873a531ad773f2'
@@ -228,6 +148,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/oidc/login/'
+LOGOUT_URL = "/oidc/logout/"
+LOGIN_REDIRECT_URL = '/'  # Or any page you prefer
+LOGOUT_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
