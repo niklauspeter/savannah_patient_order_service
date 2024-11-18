@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1><span class="red-text">Welcome, you are now signed in!</span></h1>
-    <p>Access tokens received from the AuthO's OpenId connect (OIDC) authentication are stored in your session, therefore you can interact with the API endpoints listed below.</p>
+    <p>Access tokens received from the AuthO's OpenId Connect (OIDC) authentication are stored in your session, therefore you can interact with the API endpoints listed below.</p>
     <p>On clicking the various endpoints(or typing them out on your browser search bar, you'll be redirected to django's inbuilt API testing interface where you can send and receive requests)</p>
     <h2>Available Routes</h2>
     <ul>
@@ -39,7 +39,7 @@
                 "physician_name":"abubakar"
             
             }</pre>
-            <pre class="red-text">modify the customer id as you see fit</pre>
+            <pre class="red-text">modify the customer id as you see fit (shouldn't exceed customers registered)</pre>
         </li>
         <li>You can retrieve customer lists and order lists via the following routes
         <pre> <strong>List Customers</strong>: <a href="{% url 'list_customers' %}">/api/customers/list/</a> </pre>
