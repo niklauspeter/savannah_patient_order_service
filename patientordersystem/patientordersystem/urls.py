@@ -16,14 +16,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from orders.views import AddCustomerView, ListCustomersView, AddOrderView, ListOrderView, login, callback, logout
+# from orders.views import AddCustomerView, ListCustomersView, AddOrderView, ListOrderView, login, callback, logout, register, login_view, logout_view
+from orders.views import AddCustomerView, ListCustomersView, AddOrderView, ListOrderView
+# from users.views import register, login_view, logout_view
+from mozilla_django_oidc import views as oidc_views
+from orders.views import logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('oidc/login/', login, name='login'),
-    path('oidc/callback/', callback, name='callback'),
-    path('oidc/logout/', logout, name='logout'),
+    # path('oidc/v1/login/', login, name='login'),
+    # path('oidc/v1/callback/', callback, name='callback'),
+    path('oidc/v1/logout/', logout, name='logout'),
+
+    path('oidc/login/', oidc_views.OIDCAuthenticationRequestView.as_view(), name='oidc_login'),
+    path('oidc/callback/', oidc_views.OIDCAuthenticationCallbackView.as_view(), name='oidc_authentication_callback'),
+    path('oidc/logout/', oidc_views.OIDCLogoutView.as_view(), name='oidc_logout'),
+
+    # path('register/', register, name='register'),
+    # path('login/', login_view, name='login'),
+    # path('logout/', logout_view, name='logout'),
 
     path('api/customers/add/', AddCustomerView.as_view(), name='add-customer'),
     path('api/customers/list', ListCustomersView.as_view(), name='list_customers'),
