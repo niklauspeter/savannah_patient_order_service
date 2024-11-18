@@ -20,3 +20,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.item} for {self.customer.name}"
+    @property
+    def customer_phone(self):
+        return self.customer.contact_number

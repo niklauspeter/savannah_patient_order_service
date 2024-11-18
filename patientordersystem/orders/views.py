@@ -14,7 +14,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.permissions import AllowAny
-
+from patientordersystem.utils import send_sms 
 
 
 
@@ -59,8 +59,12 @@ def logout(request):
     request.session.clear()
     return redirect('https://dev-ytcq356n3j8xg643.eu.auth0.com/v2/logout?client_id=loHB9FWuTUICrN5iIhY2O1MZSwcK93KX&returnTo=http://localhost:8000/')
 
+def sendtrialmessage(request):
+    send_sms("+254700206386", "Test message from Africa's Talking!")
+    return redirect('/')
+
 class AddCustomerView(APIView):
-    permission_classes = [IsAuthenticated]
+    
 
     def post(self, request):
         serializer = CustomerSerializer(data=request.data)
@@ -77,12 +81,15 @@ class ListCustomersView(APIView):
         return Response(serializer.data)
 
 class AddOrderView(APIView):
-    permission_classes = [IsAuthenticated]
+    
 
     def post(self, request):
         serializer = OrderSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            order = serializer.save()
+            customer_phone = order.customer_phone
+            message = f"Thank you for your order #{order.id}. {order.item} - KSH {order.amount}. We’ll notify you when it’s ready!"
+            send_sms(customer_phone, message)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 

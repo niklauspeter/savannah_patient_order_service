@@ -20,7 +20,7 @@ from django.urls import path, include
 from orders.views import AddCustomerView, ListCustomersView, AddOrderView, ListOrderView
 # from users.views import register, login_view, logout_view
 from mozilla_django_oidc import views as oidc_views
-from orders.views import logout
+from orders.views import logout, sendtrialmessage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,6 +37,7 @@ urlpatterns = [
     # path('login/', login_view, name='login'),
     # path('logout/', logout_view, name='logout'),
 
+    path('trial/', sendtrialmessage, name='trial-message'),
     path('api/customers/add/', AddCustomerView.as_view(), name='add-customer'),
     path('api/customers/list', ListCustomersView.as_view(), name='list_customers'),
     path('api/orders/add', AddOrderView.as_view(), name='add-orders'),
