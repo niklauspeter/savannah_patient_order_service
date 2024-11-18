@@ -18,6 +18,7 @@ from patientordersystem.utils import send_sms
 from django.views.decorators.csrf import csrf_exempt 
 
 from django.views.generic import TemplateView
+from django.utils.decorators import method_decorator
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -39,8 +40,7 @@ def sendtrialmessage(request):
     return redirect('/')
 
 
-
-@csrf_exempt
+@method_decorator(csrf_exempt, name='dispatch')
 class AddCustomerView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
@@ -57,7 +57,7 @@ class ListCustomersView(APIView):
         serializer = CustomerSerializer(customers, many=True)
         return Response(serializer.data)
     
-@csrf_exempt
+@method_decorator(csrf_exempt, name='dispatch')
 class AddOrderView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
