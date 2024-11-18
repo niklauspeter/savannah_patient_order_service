@@ -74,7 +74,7 @@ class AddCustomerView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ListCustomersView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     def get(self, request):
         customers = Customer.objects.all()
         serializer = CustomerSerializer(customers, many=True)
@@ -94,7 +94,7 @@ class AddOrderView(APIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class ListOrderView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     def get(self, request):
         orders = Order.objects.all()
         serializer = OrderSerializer(orders, many=True)

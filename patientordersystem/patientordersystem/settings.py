@@ -58,6 +58,18 @@ INSTALLED_APPS = [
 # }
 # AUTH_USER_MODEL = 'users.User'
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_RENDERER_CLASSES': (
+#         'rest_framework.renderers.JSONRenderer',
+#     ),
+# }
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -203,11 +215,11 @@ LOGOUT_REDIRECT_URL = '/'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-AFRICASTALKING_USERNAME = 'klausorioki'
-AFRICASTALKING_API_KEY = 'atsk_d58a80a4050843a4af2c5b5743eee9823a8b37add422a780f6a7c27750873a531ad773f2'
+# AFRICASTALKING_USERNAME = 'klausorioki'
+# AFRICASTALKING_API_KEY = 'atsk_d58a80a4050843a4af2c5b5743eee9823a8b37add422a780f6a7c27750873a531ad773f2'
 
-# AFRICASTALKING_USERNAME = 'sandbox'
-# AFRICASTALKING_API_KEY = 'atsk_942109f5e2d58376e18a01c8f5542ed27c52036e168e7e0be878c2fc136355f61adf4c10'
+AFRICASTALKING_USERNAME = 'sandbox'
+AFRICASTALKING_API_KEY = 'atsk_942109f5e2d58376e18a01c8f5542ed27c52036e168e7e0be878c2fc136355f61adf4c10'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
