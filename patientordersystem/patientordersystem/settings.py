@@ -32,7 +32,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(" ")
 
-ALLOWED_HOSTS= [ '127.0.0.1:8000', 'localhost:8000', '127.0.0.1', 'localhost' ]
+ALLOWED_HOSTS= [ '127.0.0.1:8000', 'localhost:8000', '127.0.0.1', 'localhost', 'savannah-patient-order-service.onrender.com' ]
 
 
 
